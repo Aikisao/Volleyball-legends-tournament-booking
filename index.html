@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Tournament Booking</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .booking-form {
+        background-color: rgba(0,0,0,0.8);
+        padding: 30px;
+        border-radius: 15px;
+        width: 350px;
+        box-shadow: 0 0 20px #ff4500;
+        text-align: center;
+    }
+    .booking-form h2 {
+        margin-bottom: 10px;
+        color: #ff4500;
+    }
+    .booking-form p {
+        margin-bottom: 20px;
+        font-size: 14px;
+        color: #aaa;
+    }
+    .booking-form input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: none;
+        font-size: 14px;
+    }
+    .booking-form button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        background-color: #ff4500;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .booking-form button:hover {
+        background-color: #e03e00;
+    }
+    .success-message {
+        display: none;
+        margin-top: 15px;
+        color: #00ff99;
+    }
+</style>
+</head>
+<body>
+
+<div class="booking-form">
+    <h2>Gaming Tournament Booking</h2>
+    <p>Date: January 1st | Time: 3:00 PM</p>
+    <form id="tournamentForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="gamerTag" placeholder="Gamer Tag" required>
+        <button type="submit">Book Now</button>
+    </form>
+    <div class="success-message" id="successMessage">Thank you! Your booking has been sent.</div>
+</div>
+
+<script>
+    const form = document.getElementById('tournamentForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if(response.ok) {
+                form.reset();
+                successMessage.style.display = 'block';
+            } else {
+                alert("Oops! There was a problem submitting your booking.");
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
